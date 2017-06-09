@@ -187,7 +187,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\app.component.html" />
+    <Content Include="App\app.component.html">
+      <DependentUpon>app.component.ts</DependentUpon>
+    </Content>
+    <Content Include="App\Components\navbar.component.html">
+      <DependentUpon>navbar.component.ts</DependentUpon>
+    </Content>
     <Content Include="App\Components\user.component.html">
       <DependentUpon>user.component.ts</DependentUpon>
     </Content>
@@ -278,6 +283,7 @@
     <TypeScriptCompile Include="App\app.module.ts" />
     <TypeScriptCompile Include="App\app.routing.ts" />
     <TypeScriptCompile Include="App\Components\home.component.ts" />
+    <TypeScriptCompile Include="App\Components\navbar.component.ts" />
     <TypeScriptCompile Include="App\Components\user.component.ts" />
     <TypeScriptCompile Include="App\main.ts" />
     <TypeScriptCompile Include="App\Models\user.ts" />

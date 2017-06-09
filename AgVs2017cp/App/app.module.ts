@@ -12,9 +12,11 @@ import { UserComponent } from './components/user.component';
 
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import { NavbarComponent } from "./Components/navbar.component"
+
 @NgModule({
-    imports: [BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule ],
-    declarations: [AppComponent, HomeComponent, UserComponent],
+    imports: [BrowserModule, ReactiveFormsModule, HttpModule, routing, Ng2Bs3ModalModule],
+    declarations: [AppComponent, HomeComponent, UserComponent, NavbarComponent],
     providers: [{ provide: APP_BASE_HREF, useValue: '/' }, UserService],
     bootstrap: [AppComponent]
 })
