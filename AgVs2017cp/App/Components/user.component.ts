@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Rx';
 import { Global } from '../Shared/global';
 
 @Component({
-    templateUrl: 'app/Components/user.component.html',
+    templateUrl: 'app/components/user.component.html',
     providers: [UserService]
 })
 

@@ -1,0 +1,10 @@
+<h3>File Upload</h3>
+
+<div>
+    <form novalidate (ngSubmit)="onSubmit(upFrm)" [formGroup]="upFrm">
+        <div class="form-group">
+            Select file: <input type="file" class="form-control" placeholder="File" formControlName="File" (change)="fileChange($event)">
+            <button type="submit" [disabled]="upFrm.invalid" class="btn btn-primary">Upload</button>
+        </div>
+</form>
+</div>

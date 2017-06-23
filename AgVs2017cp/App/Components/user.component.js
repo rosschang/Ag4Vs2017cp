@@ -121,7 +121,7 @@ __decorate([
 ], UserComponent.prototype, "modal", void 0);
 UserComponent = __decorate([
     core_1.Component({
-        templateUrl: 'app/Components/user.component.html',
+        templateUrl: 'app/components/user.component.html',
         providers: [user_service_1.UserService]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, user_service_1.UserService])
