@@ -2,5 +2,11 @@
     Id: number,
     FirstName: string,
     LastName: string,
-    Gender: string
+    Email: string,
+    Gender: string,
+    DOB: string,
+    City: string,
+    State: string,
+    Zip: string,
+    Country: string
 }

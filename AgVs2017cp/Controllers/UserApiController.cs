@@ -13,7 +13,8 @@ namespace AgVs2017cp.Controllers
         public HttpResponseMessage Get()
         {
             //return ToJson(UserDB.TblUsers.AsEnumerable());
-            return ToJson(UserDB.TblUsers.SqlQuery("Select * from TblUser").AsEnumerable());
+            //return ToJson(UserDB.TblUsers.SqlQuery("Select * from TblUser").AsEnumerable());
+            return ErrorJson(UserDB.TblUsers.SqlQuery("Select * from TblUser").AsEnumerable());
         }
 
         [Route("api/user/add/")]

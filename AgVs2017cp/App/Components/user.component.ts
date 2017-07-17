@@ -1,145 +1,85 @@
-﻿import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../Service/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { IUser } from '../Models/user';
 import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
 import { Global } from '../Shared/global';
+import { ManageUser } from './manageuser.component';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 @Component({
-    templateUrl: 'app/components/user.component.html',
-    providers: [UserService]
+    templateUrl: './user.component.html'
 })
 
 export class UserComponent implements OnInit {
-    @ViewChild('modal') modal: ModalComponent ;
     users: IUser[];
     user: IUser;
     msg: string;
-    indLoading: boolean = false;
-    userFrm: FormGroup;
     dbops: DBOperation;
     modalTitle: string;
     modalBtnTitle: string;
-
-    constructor(private fb: FormBuilder, private _userService: UserService) { }
-
-    ngOnInit(): void {
-        this.userFrm = this.fb.group({
-            Id: [''],
-            FirstName: ['', Validators.required],
-            LastName: [''],
-            Gender: ['']
+    listFilter: string;
+    searchTitle: string = "Search: ";
+    selectedOption: string;
+    constructor(private _userService: UserService, private dialog: MdDialog) { }
+    openDialog() {
+        let dialogRef = this.dialog.open(ManageUser);
+        dialogRef.componentInstance.dbops = this.dbops;
+        dialogRef.componentInstance.modalTitle = this.modalTitle;
+        dialogRef.componentInstance.modalBtnTitle = this.modalBtnTitle;
+        dialogRef.componentInstance.user = this.user;
+        dialogRef.afterClosed().subscribe(result => {
+            if (result == "success") {
+                this.LoadUsers();
+                switch (this.dbops) {
+                    case DBOperation.create:
+                        this.msg = "Data successfully added.";
+                        break;
+                    case DBOperation.update:
+                        this.msg = "Data successfully updated.";
+                        break;
+                    case DBOperation.delete:
+                        this.msg = "Data successfully deleted.";
+                        break;
+                }
+            }
+            else if (result == "error")
+                this.msg = "There is some issue in saving records, please contact to system administrator!"
+            else
+                this.msg = result;
         });
-
+    }
+    ngOnInit(): void {
         this.LoadUsers();
     }
-
-
     LoadUsers(): void {
-        this.indLoading = true;
-        this._userService.get(Global.UserGet)
-            .subscribe(users => { this.users = users; this.indLoading = false; },
-            error => this.msg = <any>error);
-
+        this._userService.get(Global.BASE_USER_ENDPOINT)
+            .subscribe(users => { this.users = users; }
+            //,error => this.msg = <any>error
+            );
     }
-
     addUser() {
         this.dbops = DBOperation.create;
-        this.SetControlsState(true);
         this.modalTitle = "Add New User";
         this.modalBtnTitle = "Add";
-        this.userFrm.reset();
-        
-        this.modal.open();
+        this.openDialog();
     }
-
     editUser(id: number) {
         this.dbops = DBOperation.update;
-        this.SetControlsState(true);
         this.modalTitle = "Edit User";
         this.modalBtnTitle = "Update";
         this.user = this.users.filter(x => x.Id == id)[0];
-        this.userFrm.setValue(this.user);
-        this.modal.open();
+        this.openDialog();
     }
-
     deleteUser(id: number) {
         this.dbops = DBOperation.delete;
-        this.SetControlsState(false);
         this.modalTitle = "Confirm to Delete?";
         this.modalBtnTitle = "Delete";
         this.user = this.users.filter(x => x.Id == id)[0];
-        this.userFrm.setValue(this.user);
-        this.modal.open();
+        this.openDialog();
     }
-
-    SetControlsState(isEnable: boolean) {
-        isEnable ? this.userFrm.enable() : this.userFrm.disable();
-    }
-
-    onSubmit(formData: any) {
-        this.msg = "";
-
-        switch (this.dbops) {
-            case DBOperation.create:
-                this._userService.post(Global.UserAdd, formData._value).subscribe(
-                    data => {
-                        if (data == 1) //Success
-                        {
-                            this.msg = "Data successfully added.";
-                            this.LoadUsers();
-                        }
-                        else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                        }
-
-                        this.modal.dismiss();
-                    },
-                    error => {
-                        this.msg = error;
-                    }
-                );
-                break;
-            case DBOperation.update:
-                this._userService.put(Global.UserEdit, formData._value.Id, formData._value).subscribe(
-                    data => {
-                        if (data == 1) //Success
-                        {
-                            this.msg = "Data successfully updated.";
-                            this.LoadUsers();
-                        }
-                        else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                        }
-
-                        this.modal.dismiss();
-                    },
-                    error => {
-                        this.msg = error;
-                    }
-                );
-                break;
-            case DBOperation.delete:
-                this._userService.delete(Global.UserDelete, formData._value.Id).subscribe(
-                    data => {
-                        if (data == 1) //Success
-                        {
-                            this.msg = "Data successfully deleted.";
-                            this.LoadUsers();
-                        }
-                        else {
-                            this.msg = "There is some issue in saving records, please contact to system administrator!"
-                        }
-
-                        this.modal.dismiss();
-                    },
-                    error => {
-                        this.msg = error;
-                    }
-                );
-                break;
-        }
+    criteriaChange(value: string): void {
+        if (value != '[object Event]')
+            this.listFilter = value;
     }
 }

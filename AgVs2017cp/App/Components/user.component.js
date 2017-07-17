@@ -22,6 +22,7 @@ var UserComponent = (function () {
         this.indLoading = false;
     }
     UserComponent.prototype.ngOnInit = function () {
+        this.searchTitle = 'Search: ';
         this.userFrm = this.fb.group({
             Id: [''],
             FirstName: ['', forms_1.Validators.required],
@@ -34,7 +35,9 @@ var UserComponent = (function () {
         var _this = this;
         this.indLoading = true;
         this._userService.get(global_1.Global.UserGet)
-            .subscribe(function (users) { _this.users = users; _this.indLoading = false; }, function (error) { return _this.msg = error; });
+            .subscribe(function (users) { _this.users = users; _this.indLoading = false; }
+        //, error => this.msg = <any>error
+        );
     };
     UserComponent.prototype.addUser = function () {
         this.dbops = enum_1.DBOperation.create;
@@ -112,6 +115,10 @@ var UserComponent = (function () {
                 });
                 break;
         }
+    };
+    UserComponent.prototype.criteriaChange = function (value) {
+        if (value != '[object Event]')
+            this.listFilter = value;
     };
     return UserComponent;
 }());

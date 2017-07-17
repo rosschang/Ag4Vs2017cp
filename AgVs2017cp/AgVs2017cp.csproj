@@ -201,6 +201,18 @@
     </Content>
     <Content Include="App\Components\fileupload\fileupload.component.css" />
     <Content Include="App\Components\fileupload\fileupload.component.html" />
+    <Content Include="App\Components\home.component.css">
+      <DependentUpon>home.component.ts</DependentUpon>
+    </Content>
+    <Content Include="App\Components\home.component.html">
+      <DependentUpon>home.component.ts</DependentUpon>
+    </Content>
+    <Content Include="App\Components\manageuser.component.css">
+      <DependentUpon>manageuser.component.ts</DependentUpon>
+    </Content>
+    <Content Include="App\Components\manageuser.component.html">
+      <DependentUpon>manageuser.component.ts</DependentUpon>
+    </Content>
     <Content Include="App\Components\navbar.component.html">
       <DependentUpon>navbar.component.ts</DependentUpon>
     </Content>
@@ -251,6 +263,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -297,15 +310,19 @@
     <TypeScriptCompile Include="App\Components\fileupload\fileupload.component.spec.ts" />
     <TypeScriptCompile Include="App\Components\fileupload\fileupload.component.ts" />
     <TypeScriptCompile Include="App\Components\home.component.ts" />
+    <TypeScriptCompile Include="App\Components\manageuser.component.ts" />
     <TypeScriptCompile Include="App\Components\navbar.component.ts" />
     <TypeScriptCompile Include="App\Components\user.component.ts" />
     <TypeScriptCompile Include="App\main.ts" />
     <TypeScriptCompile Include="App\Models\currency.ts" />
     <TypeScriptCompile Include="App\Models\user.ts" />
+    <TypeScriptCompile Include="App\Pipe\user.pipe.ts" />
     <TypeScriptCompile Include="App\Service\currency.service.ts" />
     <TypeScriptCompile Include="App\Service\user.service.ts" />
     <TypeScriptCompile Include="App\Shared\enum.ts" />
+    <TypeScriptCompile Include="App\Shared\errorhandler.ts" />
     <TypeScriptCompile Include="App\Shared\global.ts" />
+    <TypeScriptCompile Include="App\Shared\search.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

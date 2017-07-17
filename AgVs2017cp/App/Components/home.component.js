@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+//import { MdCardModule } from '@angular/material';
 var HomeComponent = (function () {
     function HomeComponent() {
     }
@@ -14,7 +15,11 @@ var HomeComponent = (function () {
 }());
 HomeComponent = __decorate([
     core_1.Component({
-        template: "<img src=\"../../images/users.png\" style=\"text-align:center\"/>"
+        //template: `<img src="../../images/users.png" style="text-align:center"/>
+        //            <button class="btn btn-primary" (click)="IdontExist()">ErrorButton</button>`
+        templateUrl: './home.component.html',
+        styleUrls: ['./home.component.css']
+        //'app/components/home.component.html',
     })
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
